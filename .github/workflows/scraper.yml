@@ -1,7 +1,9 @@
 name: Playwright Scraper Test
 
 on:
-  # Cho phép kích hoạt thủ công từ tab "Actions" trên GitHub
+  push:
+    branches:
+      - main  # Hoặc 'master' tùy vào tên nhánh chính của bạn
   workflow_dispatch:
 
 jobs:
