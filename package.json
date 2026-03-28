@@ -1,0 +1,13 @@
+{
+  "name": "crawl-stock",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture:stocks": "node scripts/capture-vietstock.js",
+    "capture:acb": "node scripts/capture-vietstock.js"
+  },
+  "dependencies": {
+    "playwright": "^1.53.2"
+  }
+}
