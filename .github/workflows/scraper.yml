@@ -1,6 +1,9 @@
 name: Playwright Scraper Test
 
 on:
+  # Chạy mỗi 10 phút
+  schedule:
+    - cron: '0 */8 * * *'
   push:
     branches:
       - main  # Hoặc 'master' tùy vào tên nhánh chính của bạn
