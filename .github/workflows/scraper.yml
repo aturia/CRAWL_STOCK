@@ -1,0 +1,46 @@
+name: Playwright Scraper Test
+
+on:
+  # Cho phép kích hoạt thủ công từ tab "Actions" trên GitHub
+  workflow_dispatch:
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        # Chỉ cài Chromium để chạy cho nhanh và tiết kiệm dung lượng
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute Scraper
+        # Thay 'your-script.js' bằng file chính của bạn
+        run: node scripts/capture-vietstock.js 
+        env:
+          # Đảm bảo môi trường không mở cửa sổ trình duyệt (Headless)
+          HEADLESS: true
+
+      - name: Archive Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraper-output
+          # Gom tất cả ảnh và file data cào được để kiểm tra
+          path: |
+            screenshots/
+            *.json
+            *.csv
+            *.png
+          retention-days: 1
