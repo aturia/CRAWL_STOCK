@@ -46,3 +46,16 @@ jobs:
             *.csv
             *.png
           retention-days: 1
+
+      # BƯỚC DEBUG: Kiểm tra xem file có thực sự tồn tại không
+      - name: List files for debugging
+        run: |
+          ls -R
+          echo "Kiểm tra thư mục screenshots:"
+          ls screenshots || echo "Thư mục screenshots trống hoặc không tồn tại"
+
+      - name: Send Images to Discord
+        if: success()
+        run: node scripts/send-image.js
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
